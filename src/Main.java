@@ -5,51 +5,65 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        String userWord;
-        Scanner firstScan = new Scanner(System.in);
-        int timesRep;
+public static void main(String[] args) {
 
-        userWord = firstScan.next();
-        userWord = userWord.toUpperCase();
-        Character[] wLib = {};
+    int timesRep;
 
-        for (char i = 0; i < userWord.length(); i++) {
-            timesRep = 0;
+    //--- RECOLECTA DE DATOS ---//
+    // NOTA: *Si el usuario introduce más de una palábra solo se toma en cuenta la primera.*
+    System.out.print("Introduce una palabra: ");
+    String userWord;
+    Scanner firstScan = new Scanner(System.in);
 
-            for (char t: wLib) {
-                if (userWord.charAt(i) == t){
-                    timesRep++;
-                }
-            }
+    userWord = firstScan.next();
+    userWord = userWord.toUpperCase(); //Transforma la palabra a mayúsculas para evitar errores por características CaseSensitive de Java.
 
-            if (timesRep == 0) {
-                wLib = append(wLib, userWord.charAt(i));
+
+
+    //--- CREACIÓN DE LA BIBLIOTECA DE CARACTERES ---//
+    // DESCRIPCION: *Dentro de esta biblioteca se almacenan las letras que componen la palabra del usuario.*
+    Character[] wLib = {};
+
+    for (int i = 0; i < userWord.length(); i++) {
+        timesRep = 0;
+
+        for (char j: wLib) {
+            if (userWord.charAt(i) == j){
+                timesRep++;
             }
         }
 
-        for (char i: wLib) {
-            timesRep = 0;
-
-            for (int j: userWord.toCharArray()) {
-                if (i == j) {
-                    timesRep++;
-                }
-            }
-
-            System.out.println(i + " = " + timesRep);
+        if (timesRep == 0) {
+            wLib = append(wLib, userWord.charAt(i));
         }
     }
 
 
 
+    //--- SALIDA DE DATOS ---//
+    for (char c: wLib) {
+        timesRep = 0;
 
-    private static Character[] append(Character[] arr, char element)
-    {
-        List<Character> list = new ArrayList<>(Arrays.asList(arr));
-        list.add(element);
+        for (int j: userWord.toCharArray()) {
+            if (c == j) {
+                timesRep++;
+            }
+        }
 
-        return list.toArray(new Character[0]);
+        System.out.println(c + " = " + timesRep);
     }
+}
+
+
+
+///----- ADICIÓN DE ELEMENTOS -----///
+// DESCRIPCION: *Con este método se le añaden nuevos elementos a cualquier array de caracteres*
+private static Character[] append(Character[] arr, char element)
+{
+    List<Character> list = new ArrayList<>(Arrays.asList(arr));
+    list.add(element);
+
+    return list.toArray(new Character[0]);
+}
 
 }
